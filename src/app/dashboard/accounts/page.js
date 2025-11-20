@@ -6,10 +6,12 @@ import DashboardLayout from '@/components/layout/DashboardLayout';
 import AccountTable from '@/components/accounts/AccountTable';
 import { Button } from '@/components/UI/Button';
 import Link from 'next/link';
+import { Search, Plus } from 'lucide-react';
 
 const AccountsPage = () => {
   const [accounts, setAccounts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     const fetchAccounts = async () => {
@@ -40,6 +42,13 @@ const AccountsPage = () => {
     }
   };
 
+  // Filter accounts based on search query
+  const filteredAccounts = accounts.filter(account =>
+    account.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    account.headOfAccount.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    account.category?.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   if (loading) {
     return (
       <DashboardLayout>
@@ -58,13 +67,28 @@ const AccountsPage = () => {
             <h1 className="text-3xl font-bold">Accounts</h1>
             <p className="text-muted-foreground">Manage your account records</p>
           </div>
-          <Link href="/dashboard/accounts/create">
-            <Button>Create Account</Button>
-          </Link>
+          <div className="flex gap-3">
+            <div className="relative">
+              <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+              <input
+                type="search"
+                placeholder="Search accounts..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-8 pr-4 py-2 border rounded-md w-full sm:w-64"
+              />
+            </div>
+            <Link href="/dashboard/accounts/create">
+              <Button className="flex items-center gap-2">
+                <Plus className="h-4 w-4" />
+                Create Account
+              </Button>
+            </Link>
+          </div>
         </div>
-        <div className="bg-card p-6 rounded-lg border">
+        <div>
           <AccountTable
-            accounts={accounts}
+            accounts={filteredAccounts}
             onDelete={handleDelete}
           />
         </div>
