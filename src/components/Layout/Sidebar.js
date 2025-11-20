@@ -8,10 +8,10 @@ const Sidebar = ({ collapsed = false, toggleCollapse, isOpen = false, onClose })
 
   // Navigation items - expandable for future features
   const navItems = [
-    { id: 'overview', label: 'Overview', href: '/dashboard', icon: '📊' },
-    { id: 'transactions', label: 'Transactions', href: '/dashboard/transactions', icon: '💳' },
-    { id: 'analytics', label: 'Analytics', href: '/dashboard/analytics', icon: '📈' },
-    { id: 'budget', label: 'Budget', href: '/dashboard/budget', icon: '💰' },
+    { id: 'overview', label: 'Overview', href: '/', icon: '📊' },
+    { id: 'transactions', label: 'Transactions', href: '/transactions', icon: '💳' },
+    { id: 'analytics', label: 'Analytics', href: '/analytics', icon: '📈' },
+    { id: 'budget', label: 'Budget', href: '/budget', icon: '💰' },
   ];
 
   const activeItem = navItems.find(item => item.href === pathname);
@@ -34,7 +34,7 @@ const Sidebar = ({ collapsed = false, toggleCollapse, isOpen = false, onClose })
       onMouseLeave={() => setIsHovered(false)}
     >
       <div className="flex h-16 items-center border-b border-sidebar-border/50 px-4 bg-sidebar/30 backdrop-blur-sm">
-        <Link href="/dashboard" className={`flex items-center gap-3 ${collapsed && !isHovered ? 'justify-center' : 'justify-between'} w-full`}>
+        <Link href="/" className={`flex items-center gap-3 ${collapsed && !isHovered ? 'justify-center' : 'justify-between'} w-full`}>
           <div className="bg-gradient-to-r from-primary to-primary/80 text-primary-foreground w-10 h-10 rounded-xl flex items-center justify-center font-bold shadow-lg">
             <span className="text-lg">A</span>
           </div>
@@ -42,7 +42,7 @@ const Sidebar = ({ collapsed = false, toggleCollapse, isOpen = false, onClose })
             <div className="flex-1 flex justify-between items-center">
               <div>
                 <h1 className="text-xl font-bold bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-transparent">AccountApp</h1>
-                <p className="text-xs text-muted-foreground -mt-1">Dashboard</p>
+                <p className="text-xs text-muted-foreground -mt-1">Overview</p>
               </div>
               <div className="flex items-center gap-1">
                 {/* Close button for mobile */}
@@ -162,13 +162,13 @@ const Sidebar = ({ collapsed = false, toggleCollapse, isOpen = false, onClose })
         {/* Additional navigation items for demonstration */}
         <nav className="flex flex-col gap-1 px-2 mt-2">
           {[
-            { id: 'accounts', label: 'Accounts', href: '/dashboard/accounts', icon: '🏦' },
-            { id: 'investments', label: 'Investments', href: '/dashboard/investments', icon: '📈' },
-            { id: 'savings', label: 'Savings', href: '/dashboard/savings', icon: '💰' },
-            { id: 'insurance', label: 'Insurance', href: '/dashboard/insurance', icon: '🛡️' },
-            { id: 'loans', label: 'Loans', href: '/dashboard/loans', icon: '💳' },
-            { id: 'reports', label: 'Reports', href: '/dashboard/reports', icon: '📊' },
-            { id: 'settings', label: 'Settings', href: '/dashboard/settings', icon: '⚙️' },
+            { id: 'accounts', label: 'Accounts', href: '/accounts', icon: '🏦' },
+            { id: 'investments', label: 'Investments', href: '/investments', icon: '📈' },
+            { id: 'savings', label: 'Savings', href: '/savings', icon: '💰' },
+            { id: 'insurance', label: 'Insurance', href: '/insurance', icon: '🛡️' },
+            { id: 'loans', label: 'Loans', href: '/loans', icon: '💳' },
+            { id: 'reports', label: 'Reports', href: '/reports', icon: '📊' },
+            { id: 'settings', label: 'Settings', href: '/settings', icon: '⚙️' },
           ].map((item) => (
             <Link
               key={item.id}

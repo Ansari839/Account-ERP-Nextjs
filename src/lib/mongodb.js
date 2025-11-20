@@ -2,7 +2,9 @@ import mongoose from "mongoose";
 
 const MONGODB_URI = process.env.MONGODB_URI;
 
-if (!MONGODB_URI) throw new Error("Please define the MONGODB_URI in .env");
+if (!MONGODB_URI) {
+  console.error("Warning: MONGODB_URI not found in environment variables. Database operations will not work.");
+}
 
 let cached = global.mongoose;
 
@@ -12,6 +14,10 @@ if (!cached) {
 
 async function dbConnect() {
   if (cached.conn) return cached.conn;
+
+  if (!MONGODB_URI) {
+    throw new Error("MONGODB_URI is not defined in environment variables");
+  }
 
   if (!cached.promise) {
     cached.promise = mongoose.connect(MONGODB_URI).then((mongoose) => mongoose);

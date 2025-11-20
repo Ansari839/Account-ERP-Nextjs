@@ -1,10 +1,13 @@
 'use client';
 
 import React from 'react';
-import DashboardLayout from '@/components/Layout/DashboardLayout';
+import DashboardLayout from '@/components/layout/DashboardLayout';
 import { Button } from '@/components/UI/Button';
+import useTheme from '@/hooks/useTheme';
 
 const DashboardPage = () => {
+  const { theme, toggleTheme } = useTheme();
+
   return (
     <DashboardLayout>
       <div className="space-y-6 pb-12">
@@ -47,11 +50,13 @@ const DashboardPage = () => {
               </svg>
               Export
             </Button>
+            <Button variant="outline" onClick={toggleTheme}>
+              {theme === 'dark' ? '🌞 Light' : '🌙 Dark'}
+            </Button>
           </div>
         </div>
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          {/* Total Balance Card */}
           <div className="relative rounded-xl bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 p-6 shadow-lg overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/5 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500"></div>
             <div className="relative z-10">
@@ -102,7 +107,6 @@ const DashboardPage = () => {
             </div>
           </div>
 
-          {/* Income Card */}
           <div className="relative rounded-xl bg-gradient-to-br from-green-500/10 to-emerald-500/5 border border-green-500/20 p-6 shadow-lg overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-green-500/5 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500"></div>
             <div className="relative z-10">
@@ -148,7 +152,6 @@ const DashboardPage = () => {
             </div>
           </div>
 
-          {/* Expenses Card */}
           <div className="relative rounded-xl bg-gradient-to-br from-red-500/10 to-rose-500/5 border border-red-500/20 p-6 shadow-lg overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-red-500/5 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500"></div>
             <div className="relative z-10">
@@ -193,7 +196,6 @@ const DashboardPage = () => {
             </div>
           </div>
 
-          {/* Transactions Card */}
           <div className="relative rounded-xl bg-gradient-to-br from-blue-500/10 to-indigo-500/5 border border-blue-500/20 p-6 shadow-lg overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-blue-500/5 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500"></div>
             <div className="relative z-10">

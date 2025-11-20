@@ -59,5 +59,23 @@
 - Validation via Zod on request bodies
 
 ---
+## Example Folder Structure
+
+/account-app
+├─ /models
+│  └─ Account.js         # Mongoose model
+├─ /controllers
+│  └─ accountController.js
+├─ /lib
+│  └─ db.js              # MongoDB connection via Mongoose
+├─ /helpers
+│  └─ validation.js      # Zod validation
+├─ /constants
+│  └─ accountConstants.js
+├─ /pages/api
+│  └─ accounts
+│     ├─ index.js        # GET all / POST
+│     └─ [id].js         # GET by id, PUT, DELETE
+
 
 > Keep this file as the single source of truth for stack, structure, and clean code rules.
