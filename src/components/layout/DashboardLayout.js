@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import Header from './Header';
 import Sidebar from './Sidebar';
+import { AppCurrencyProvider } from '@/contexts/AppCurrencyContext';
 
 const DashboardLayout = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -46,33 +47,35 @@ const DashboardLayout = ({ children }) => {
   };
 
   return (
-    <div className="flex min-h-screen w-full overflow-hidden">
-      <Sidebar
-        isOpen={sidebarOpen}
-        toggleSidebar={() => setSidebarOpen(!sidebarOpen)}
-        isCollapsed={sidebarCollapsed}
-        toggleCollapse={() => setSidebarCollapsed(!sidebarCollapsed)}
-      />
-
-      {/* Main content area */}
-      <div className={`flex flex-col flex-1 transition-all duration-300 ${!isMobile && sidebarCollapsed ? 'md:ml-16' : 'md:ml-64'}`}>
-        <Header
-          sidebarOpen={sidebarOpen}
-          toggleSidebar={toggleSidebar}
+    <AppCurrencyProvider>
+      <div className="flex min-h-screen w-full overflow-hidden">
+        <Sidebar
+          isOpen={sidebarOpen}
+          toggleSidebar={() => setSidebarOpen(!sidebarOpen)}
+          isCollapsed={sidebarCollapsed}
+          toggleCollapse={() => setSidebarCollapsed(!sidebarCollapsed)}
         />
-        <main className="flex-1 p-4 md:p-6 overflow-y-auto bg-muted/20">
-          {children}
-        </main>
-      </div>
 
-      {/* Overlay for mobile sidebar */}
-      {sidebarOpen && isMobile && (
-        <div 
-          className="fixed inset-0 z-40 bg-black/50 md:hidden"
-          onClick={() => setSidebarOpen(false)}
-        ></div>
-      )}
-    </div>
+        {/* Main content area */}
+        <div className={`flex flex-col flex-1 transition-all duration-300 ${!isMobile && sidebarCollapsed ? 'md:ml-16' : 'md:ml-64'}`}>
+          <Header
+            sidebarOpen={sidebarOpen}
+            toggleSidebar={toggleSidebar}
+          />
+          <main className="flex-1 p-4 md:p-6 overflow-y-auto bg-muted/20">
+            {children}
+          </main>
+        </div>
+
+        {/* Overlay for mobile sidebar */}
+        {sidebarOpen && isMobile && (
+          <div
+            className="fixed inset-0 z-40 bg-black/50 md:hidden"
+            onClick={() => setSidebarOpen(false)}
+          ></div>
+        )}
+      </div>
+    </AppCurrencyProvider>
   );
 };
 

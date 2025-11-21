@@ -9,23 +9,36 @@ import {
   Users,
   Settings,
   FileText,
-  BarChart3
+  BarChart3,
+  Building,
+  ChevronDown,
+  ChevronRight
 } from 'lucide-react';
 
 const Sidebar = ({ isOpen, toggleSidebar, isCollapsed, toggleCollapse }) => {
   const pathname = usePathname();
   const [isHovered, setIsHovered] = useState(false);
+  const [settingsExpanded, setSettingsExpanded] = useState(false);
 
   // Navigation items
   const navItems = [
     { id: 'overview', label: 'Overview', href: '/dashboard', icon: LayoutDashboard },
     { id: 'accounts', label: 'Account Manage', href: '/dashboard/accounts', icon: Users },
+    { id: 'company', label: 'Company', href: '/dashboard/company', icon: Building },
     { id: 'transactions', label: 'Transactions', href: '/dashboard/transactions', icon: FileText },
     { id: 'reports', label: 'Reports', href: '/dashboard/reports', icon: BarChart3 },
-    { id: 'settings', label: 'Settings', href: '/dashboard/settings', icon: Settings },
+    {
+      id: 'settings',
+      label: 'Settings',
+      href: '/dashboard/settings', // Main settings page
+      icon: Settings,
+      children: [
+        { id: 'theme', label: 'Theme Settings', href: '/dashboard/settings/theme' }
+      ]
+    },
   ];
 
-  const activeItem = navItems.find(item => item.href === pathname);
+  const activeItem = navItems.find(item => item.href === pathname || item.children?.some(child => child.href === pathname));
 
   // Handle sidebar collapse based on hover and mobile state
   const shouldShowLabels = !isCollapsed || isHovered;
@@ -91,29 +104,100 @@ const Sidebar = ({ isOpen, toggleSidebar, isCollapsed, toggleCollapse }) => {
             {navItems.map((item) => {
               const Icon = item.icon;
               const isActive = activeItem?.id === item.id;
-              return (
-                <Link
-                  key={item.id}
-                  href={item.href}
-                  className={`
-                    flex items-center gap-3 rounded-lg px-3 py-2.5
-                    transition-all duration-200
-                    group relative
-                    ${isActive
-                      ? 'bg-gradient-to-r from-indigo-600/30 to-purple-600/30 text-white shadow-md font-medium'
-                      : 'hover:bg-slate-700/50 text-slate-300 hover:text-white'}
-                    ${isCollapsed && !isHovered ? 'justify-center' : 'justify-start'}
-                  `}
-                >
-                  <Icon className={`h-5 w-5 ${isActive ? 'text-indigo-300' : 'text-slate-400'}`} />
-                  {shouldShowLabels && (
-                    <span className="font-medium transition-all duration-200">{item.label}</span>
-                  )}
-                  {isActive && (
-                    <div className="absolute left-0 top-1/2 transform -translate-y-1/2 w-1 h-8 bg-gradient-to-b from-indigo-500 to-purple-500 rounded-r-full"></div>
-                  )}
-                </Link>
-              );
+              const isSettingsActive = item.id === 'settings' && item.children?.some(child => child.href === pathname);
+              const isAnyChildActive = item.children?.some(child => child.href === pathname);
+
+              if (item.children) {
+                // Parent item with children (like Settings)
+                return (
+                  <div key={item.id}>
+                    <div className="relative">
+                      <Link
+                        href={item.href}
+                        className={`
+                          flex items-center gap-3 rounded-lg px-3 py-2.5
+                          transition-all duration-200
+                          group relative
+                          ${(isActive || isSettingsActive || isAnyChildActive)
+                            ? 'bg-gradient-to-r from-indigo-600/30 to-purple-600/30 text-white shadow-md font-medium'
+                            : 'hover:bg-slate-700/50 text-slate-300 hover:text-white'}
+                          ${isCollapsed && !isHovered ? 'justify-center' : 'justify-start'}
+                        `}
+                      >
+                        <Icon className={`h-5 w-5 ${(isActive || isSettingsActive || isAnyChildActive) ? 'text-indigo-300' : 'text-slate-400'}`} />
+                        {shouldShowLabels && (
+                          <span className="font-medium transition-all duration-200 flex-1">{item.label}</span>
+                        )}
+                        {shouldShowLabels && (
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              setSettingsExpanded(!settingsExpanded);
+                            }}
+                            className="flex items-center"
+                          >
+                            {settingsExpanded ? <ChevronDown className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
+                          </button>
+                        )}
+                        {(isActive || isSettingsActive || isAnyChildActive) && !isCollapsed && (
+                          <div className="absolute left-0 top-1/2 transform -translate-y-1/2 w-1 h-8 bg-gradient-to-b from-indigo-500 to-purple-500 rounded-r-full"></div>
+                        )}
+                      </Link>
+                    </div>
+
+                    {/* Dropdown items */}
+                    {(settingsExpanded || isAnyChildActive) && !isCollapsed && (
+                      <div className="ml-4 mt-1 space-y-1 pl-2 border-l border-slate-700">
+                        {item.children.map((child) => {
+                          const isChildActive = pathname === child.href;
+                          return (
+                            <Link
+                              key={child.id}
+                              href={child.href}
+                              className={`
+                                flex items-center gap-2 rounded-lg px-2 py-1.5
+                                transition-all duration-200
+                                ${isChildActive
+                                  ? 'bg-indigo-600/40 text-white font-medium'
+                                  : 'hover:bg-slate-700/50 text-slate-400 hover:text-white'}
+                              `}
+                            >
+                              <div className="w-1.5 h-1.5 rounded-full bg-slate-500"></div>
+                              <span className="text-sm">{child.label}</span>
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+                );
+              } else {
+                // Regular item without children
+                return (
+                  <Link
+                    key={item.id}
+                    href={item.href}
+                    className={`
+                      flex items-center gap-3 rounded-lg px-3 py-2.5
+                      transition-all duration-200
+                      group relative
+                      ${isActive
+                        ? 'bg-gradient-to-r from-indigo-600/30 to-purple-600/30 text-white shadow-md font-medium'
+                        : 'hover:bg-slate-700/50 text-slate-300 hover:text-white'}
+                      ${isCollapsed && !isHovered ? 'justify-center' : 'justify-start'}
+                    `}
+                  >
+                    <Icon className={`h-5 w-5 ${isActive ? 'text-indigo-300' : 'text-slate-400'}`} />
+                    {shouldShowLabels && (
+                      <span className="font-medium transition-all duration-200">{item.label}</span>
+                    )}
+                    {isActive && (
+                      <div className="absolute left-0 top-1/2 transform -translate-y-1/2 w-1 h-8 bg-gradient-to-b from-indigo-500 to-purple-500 rounded-r-full"></div>
+                    )}
+                  </Link>
+                );
+              }
             })}
           </nav>
         </div>

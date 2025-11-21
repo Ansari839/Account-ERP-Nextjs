@@ -1,22 +1,20 @@
+// This hook is being replaced by the ThemeProvider context
+// Keeping for backward compatibility if needed elsewhere
 import { useState, useEffect } from 'react';
 
 const useTheme = () => {
   const [theme, setTheme] = useState('light');
 
   useEffect(() => {
-    // Check for saved theme in localStorage or default to system preference
-    const savedTheme = localStorage.getItem('theme') || 
-      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-    
+    // Check for saved theme in localStorage or default to 'light'
+    const savedTheme = localStorage.getItem('theme') || 'light';
     setTheme(savedTheme);
-    document.documentElement.classList.toggle('dark', savedTheme === 'dark');
   }, []);
 
   const toggleTheme = () => {
     const newTheme = theme === 'light' ? 'dark' : 'light';
     setTheme(newTheme);
     localStorage.setItem('theme', newTheme);
-    document.documentElement.classList.toggle('dark', newTheme === 'dark');
   };
 
   return { theme, toggleTheme };

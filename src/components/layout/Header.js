@@ -2,10 +2,10 @@
 
 import React, { useState } from 'react';
 import { Button } from '../UI/Button';
-import useTheme from '../../hooks/useTheme';
+import { useTheme } from '../../contexts/ThemeProvider';
 
 const Header = ({ sidebarOpen, toggleSidebar }) => {
-  const { theme, toggleTheme } = useTheme();
+  const { isDarkMode, toggleDarkMode } = useTheme();
   const [searchQuery, setSearchQuery] = useState('');
 
   const handleSearch = (e) => {
@@ -69,11 +69,11 @@ const Header = ({ sidebarOpen, toggleSidebar }) => {
           <Button
             variant="outline"
             size="icon"
-            onClick={toggleTheme}
+            onClick={toggleDarkMode}
             className="relative rounded-xl"
             aria-label="Toggle theme"
           >
-            {theme === 'dark' ? (
+            {isDarkMode ? (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5 text-foreground"
