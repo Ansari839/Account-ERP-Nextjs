@@ -1,18 +1,20 @@
 import React from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../UI/Card';
-import { 
-  BarChart, 
-  Bar, 
-  XAxis, 
-  YAxis, 
-  CartesianGrid, 
-  Tooltip, 
-  ResponsiveContainer, 
+import { cn } from '@/lib/utils';
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
   Legend,
   LineChart,
-  Line
+  Line,
+  PieChart,
+  Pie,
+  Cell
 } from 'recharts';
-import { cn } from '@/lib/utils';
 
 const DashboardCharts = ({ className }) => {
   // Mock data for the charts
@@ -33,100 +35,134 @@ const DashboardCharts = ({ className }) => {
     { name: 'Loan', total: 1890 },
   ];
 
+  const COLORS = ['#4f46e5', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6'];
+
+  const customTooltip = ({ active, payload, label }) => {
+    if (active && payload && payload.length) {
+      return (
+        <div className="bg-card p-4 border border-border rounded-lg shadow-lg">
+          <p className="font-medium text-foreground">{label}</p>
+          {payload.map((entry, index) => (
+            <p key={index} className="text-sm" style={{ color: entry.color }}>
+              {entry.name}: <span className="font-medium">{entry.value}</span>
+            </p>
+          ))}
+        </div>
+      );
+    }
+    return null;
+  };
+
   return (
     <div className={cn("grid grid-cols-1 lg:grid-cols-2 gap-4", className)}>
-      <Card className="shadow-sm">
-        <CardHeader>
-          <CardTitle>Account Trends</CardTitle>
-          <CardDescription>
+      {/* Account Trends Line Chart */}
+      <div className="bg-card p-5 rounded-xl border border-border shadow-lg">
+        <div className="mb-4">
+          <h3 className="text-lg font-bold text-foreground">Account Trends</h3>
+          <p className="text-sm text-muted-foreground">
             Showing total and active accounts over the last 6 months
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="h-[300px]">
-            <ResponsiveContainer width="100%" height="100%">
-              <LineChart
-                data={accountData}
-                margin={{
-                  top: 5,
-                  right: 30,
-                  left: 20,
-                  bottom: 5,
-                }}
-              >
-                <CartesianGrid strokeDasharray="3 3" strokeOpacity={0.3} />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip 
-                  contentStyle={{ 
-                    backgroundColor: 'hsl(var(--background))',
-                    border: '1px solid hsl(var(--border))',
-                    borderRadius: '0.5rem',
-                  }} 
-                />
-                <Legend />
-                <Line
-                  type="monotone"
-                  dataKey="total"
-                  stroke="hsl(var(--primary))"
-                  activeDot={{ r: 8 }}
-                  strokeWidth={2}
-                  name="Total Accounts"
-                />
-                <Line
-                  type="monotone"
-                  dataKey="active"
-                  stroke="hsl(var(--muted-foreground))"
-                  strokeWidth={2}
-                  name="Active Accounts"
-                />
-              </LineChart>
-            </ResponsiveContainer>
-          </div>
-        </CardContent>
-      </Card>
+          </p>
+        </div>
+        <div className="h-[300px]">
+          <ResponsiveContainer width="100%" height="100%">
+            <LineChart
+              data={accountData}
+              margin={{
+                top: 5,
+                right: 30,
+                left: 20,
+                bottom: 5,
+              }}
+            >
+              <CartesianGrid strokeDasharray="3 3" strokeOpacity={0.1} vertical={false} />
+              <XAxis
+                dataKey="name"
+                axisLine={false}
+                tickLine={false}
+                tick={{ fill: 'hsl(var(--muted-foreground))' }}
+              />
+              <YAxis
+                axisLine={false}
+                tickLine={false}
+                tick={{ fill: 'hsl(var(--muted-foreground))' }}
+              />
+              <Tooltip content={customTooltip} />
+              <Legend
+                wrapperStyle={{ paddingTop: 10 }}
+                formatter={(value) => <span className="text-foreground">{value}</span>}
+              />
+              <Line
+                type="monotone"
+                dataKey="total"
+                stroke="#4f46e5"
+                strokeWidth={2}
+                dot={{ r: 4, fill: '#4f46e5' }}
+                activeDot={{ r: 6, fill: '#4f46e5' }}
+                name="Total Accounts"
+              />
+              <Line
+                type="monotone"
+                dataKey="active"
+                stroke="#10b981"
+                strokeWidth={2}
+                dot={{ r: 4, fill: '#10b981' }}
+                activeDot={{ r: 6, fill: '#10b981' }}
+                name="Active Accounts"
+              />
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
 
-      <Card className="shadow-sm">
-        <CardHeader>
-          <CardTitle>Account Categories</CardTitle>
-          <CardDescription>
+      {/* Account Categories Bar Chart */}
+      <div className="bg-card p-5 rounded-xl border border-border shadow-lg">
+        <div className="mb-4">
+          <h3 className="text-lg font-bold text-foreground">Account Categories</h3>
+          <p className="text-sm text-muted-foreground">
             Distribution across different account categories
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="h-[300px]">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart
-                data={categoryData}
-                margin={{
-                  top: 5,
-                  right: 30,
-                  left: 20,
-                  bottom: 5,
-                }}
+          </p>
+        </div>
+        <div className="h-[300px]">
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart
+              data={categoryData}
+              margin={{
+                top: 5,
+                right: 30,
+                left: 20,
+                bottom: 5,
+              }}
+            >
+              <CartesianGrid strokeDasharray="3 3" strokeOpacity={0.1} vertical={false} />
+              <XAxis
+                dataKey="name"
+                axisLine={false}
+                tickLine={false}
+                tick={{ fill: 'hsl(var(--muted-foreground))' }}
+              />
+              <YAxis
+                axisLine={false}
+                tickLine={false}
+                tick={{ fill: 'hsl(var(--muted-foreground))' }}
+              />
+              <Tooltip content={customTooltip} />
+              <Legend
+                wrapperStyle={{ paddingTop: 10 }}
+                formatter={(value) => <span className="text-foreground">{value}</span>}
+              />
+              <Bar
+                dataKey="total"
+                name="Account Count"
+                radius={[4, 4, 0, 0]}
               >
-                <CartesianGrid strokeDasharray="3 3" strokeOpacity={0.3} />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip 
-                  contentStyle={{ 
-                    backgroundColor: 'hsl(var(--background))',
-                    border: '1px solid hsl(var(--border))',
-                    borderRadius: '0.5rem',
-                  }} 
-                />
-                <Legend />
-                <Bar 
-                  dataKey="total" 
-                  fill="hsl(var(--primary))" 
-                  name="Account Count"
-                  radius={[4, 4, 0, 0]}
-                />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-        </CardContent>
-      </Card>
+                {categoryData.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                ))}
+              </Bar>
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
     </div>
   );
 };

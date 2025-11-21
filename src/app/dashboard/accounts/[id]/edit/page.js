@@ -77,9 +77,9 @@ const EditAccountPage = ({ params }) => {
       <div className="space-y-6">
         <div>
           <h1 className="text-3xl font-bold">Edit Account</h1>
-          <p className="text-muted-foreground">Editing account: {accountData?.name}</p>
+          <p className="text-gray-600">Editing account: {accountData?.name}</p>
         </div>
-        <div className="bg-card p-6 rounded-lg border">
+        <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
           <AccountForm onSubmit={handleSubmit} initialData={accountData} mode="edit" />
         </div>
       </div>

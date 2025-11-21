@@ -25,9 +25,9 @@ const CreateAccountPage = () => {
       <div className="space-y-6">
         <div>
           <h1 className="text-3xl font-bold">Create Account</h1>
-          <p className="text-muted-foreground">Add a new account record</p>
+          <p className="text-gray-600">Add a new account record</p>
         </div>
-        <div className="bg-card p-6 rounded-lg border">
+        <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
           <AccountForm onSubmit={handleSubmit} mode="create" />
         </div>
       </div>

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../UI/Card';
 import { cn } from '@/lib/utils';
 import {
   Activity,
@@ -8,55 +7,67 @@ import {
   TrendingUp
 } from 'lucide-react';
 
-const CardIconWrapper = ({ children, colorClass }) => (
-  <div className={cn(
-    "w-12 h-12 rounded-full flex items-center justify-center",
-    colorClass
-  )}>
-    {children}
-  </div>
-);
-
-const StatCard = ({ 
-  title, 
-  value, 
-  description, 
-  icon: Icon, 
+const StatCard = ({
+  title,
+  value,
+  description,
+  icon: Icon,
   color = 'blue',
-  className = '' 
+  className = ''
 }) => {
   const colorClasses = {
-    blue: 'bg-blue-500/10 text-blue-500',
-    green: 'bg-green-500/10 text-green-500',
-    purple: 'bg-purple-500/10 text-purple-500',
-    orange: 'bg-orange-500/10 text-orange-500',
+    blue: {
+      bg: 'bg-gradient-to-br from-blue-500 to-blue-600',
+      text: 'text-blue-100',
+      iconBg: 'bg-blue-400/20',
+      iconColor: 'text-blue-300'
+    },
+    green: {
+      bg: 'bg-gradient-to-br from-green-500 to-green-600',
+      text: 'text-green-100',
+      iconBg: 'bg-green-400/20',
+      iconColor: 'text-green-300'
+    },
+    purple: {
+      bg: 'bg-gradient-to-br from-purple-500 to-purple-600',
+      text: 'text-purple-100',
+      iconBg: 'bg-purple-400/20',
+      iconColor: 'text-purple-300'
+    },
+    orange: {
+      bg: 'bg-gradient-to-br from-orange-500 to-orange-600',
+      text: 'text-orange-100',
+      iconBg: 'bg-orange-400/20',
+      iconColor: 'text-orange-300'
+    },
   };
 
-  const iconColorClasses = {
-    blue: 'text-blue-500',
-    green: 'text-green-500',
-    purple: 'text-purple-500',
-    orange: 'text-orange-500',
-  };
-
-  const colorClass = colorClasses[color] || colorClasses.blue;
-  const iconColorClass = iconColorClasses[color] || iconColorClasses.blue;
+  const colors = colorClasses[color] || colorClasses.blue;
 
   return (
-    <Card className={cn("overflow-hidden transition-all duration-300 hover:shadow-lg", className)}>
-      <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
+    <div className={cn(
+      "rounded-xl p-5 shadow-lg transition-all duration-300 hover:shadow-xl",
+      "border border-border/50 bg-card",
+      colors.bg,
+      className
+    )}>
+      <div className="flex items-center justify-between">
         <div>
-          <CardDescription className="text-sm font-medium">{title}</CardDescription>
-          <CardTitle className="text-2xl font-bold mt-1">{value}</CardTitle>
+          <p className="text-sm font-medium text-foreground/80">{title}</p>
+          <h3 className="text-2xl font-bold mt-1 text-white">{value}</h3>
         </div>
-        <CardIconWrapper colorClass={colorClass}>
-          <Icon className={cn("h-6 w-6", iconColorClass)} />
-        </CardIconWrapper>
-      </CardHeader>
-      <CardContent>
-        <p className="text-xs text-muted-foreground">{description}</p>
-      </CardContent>
-    </Card>
+        <div className={cn(
+          "p-3 rounded-lg",
+          colors.iconBg
+        )}>
+          <Icon className={cn("h-6 w-6", colors.iconColor)} />
+        </div>
+      </div>
+      <p className={cn(
+        "text-xs mt-3",
+        colors.text
+      )}>{description}</p>
+    </div>
   );
 };
 
