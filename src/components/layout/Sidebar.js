@@ -49,7 +49,7 @@ const Sidebar = ({ isOpen, toggleSidebar, isCollapsed, toggleCollapse }) => {
       <aside
         className={`
           fixed inset-y-0 z-50
-          bg-gradient-to-b from-slate-900 to-slate-800 text-sidebar-foreground border-r border-slate-700
+          bg-gradient-to-b from-[color:var(--theme-primary)] to-[color:var(--theme-secondary)] text-[color:var(--theme-text)] border-r border-[color:var(--theme-border)]
           transition-all duration-300 ease-in-out
           ${isOpen ? 'translate-x-0' : '-translate-x-full'}
           md:translate-x-0
@@ -62,20 +62,20 @@ const Sidebar = ({ isOpen, toggleSidebar, isCollapsed, toggleCollapse }) => {
         onMouseEnter={() => !isCollapsed && setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        <div className="flex h-16 items-center border-b border-slate-700 px-4 bg-slate-800/50 backdrop-blur-sm">
+        <div className="flex h-16 items-center border-b border-[color:var(--theme-border)] px-4 bg-[color:var(--theme-secondary)]/50 backdrop-blur-sm">
           <Link href="/dashboard" className="flex items-center gap-3 w-full">
-            <div className="bg-gradient-to-r from-indigo-600 to-purple-600 text-primary-foreground w-10 h-10 rounded-xl flex items-center justify-center font-bold shadow-lg">
+            <div className="bg-gradient-to-r from-[color:var(--theme-primary)] to-[color:var(--theme-accent)] text-[color:var(--theme-card-bg)] w-10 h-10 rounded-xl flex items-center justify-center font-bold shadow-lg">
               <span className="text-lg">A</span>
             </div>
             {shouldShowLabels && (
               <div className="flex-1 flex justify-between items-center">
                 <div>
-                  <h1 className="text-xl font-bold text-white">AccountApp</h1>
-                  <p className="text-xs text-slate-400 -mt-1">Dashboard</p>
+                  <h1 className="text-xl font-bold text-[color:var(--theme-text)]">AccountApp</h1>
+                  <p className="text-xs text-[color:var(--theme-text)]/70 -mt-1">Dashboard</p>
                 </div>
                 <button
                   onClick={toggleCollapse}
-                  className="p-2 rounded-lg hover:bg-slate-700 text-white transition-colors duration-200"
+                  className="p-2 rounded-lg hover:bg-[color:var(--theme-primary)]/50 text-[color:var(--theme-text)] transition-colors duration-200"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -119,12 +119,12 @@ const Sidebar = ({ isOpen, toggleSidebar, isCollapsed, toggleCollapse }) => {
                           transition-all duration-200
                           group relative
                           ${(isActive || isSettingsActive || isAnyChildActive)
-                            ? 'bg-gradient-to-r from-indigo-600/30 to-purple-600/30 text-white shadow-md font-medium'
-                            : 'hover:bg-slate-700/50 text-slate-300 hover:text-white'}
+                            ? 'bg-gradient-to-r from-[color:var(--theme-primary)]/30 to-[color:var(--theme-accent)]/30 text-[color:var(--theme-text)] shadow-md font-medium'
+                            : 'hover:bg-[color:var(--theme-primary)]/30 text-[color:var(--theme-text)]/70 hover:text-[color:var(--theme-text)]'}
                           ${isCollapsed && !isHovered ? 'justify-center' : 'justify-start'}
                         `}
                       >
-                        <Icon className={`h-5 w-5 ${(isActive || isSettingsActive || isAnyChildActive) ? 'text-indigo-300' : 'text-slate-400'}`} />
+                        <Icon className={`h-5 w-5 ${(isActive || isSettingsActive || isAnyChildActive) ? 'text-[color:var(--theme-accent)]' : 'text-[color:var(--theme-text)]/60'}`} />
                         {shouldShowLabels && (
                           <span className="font-medium transition-all duration-200 flex-1">{item.label}</span>
                         )}
@@ -141,14 +141,14 @@ const Sidebar = ({ isOpen, toggleSidebar, isCollapsed, toggleCollapse }) => {
                           </button>
                         )}
                         {(isActive || isSettingsActive || isAnyChildActive) && !isCollapsed && (
-                          <div className="absolute left-0 top-1/2 transform -translate-y-1/2 w-1 h-8 bg-gradient-to-b from-indigo-500 to-purple-500 rounded-r-full"></div>
+                          <div className="absolute left-0 top-1/2 transform -translate-y-1/2 w-1 h-8 bg-gradient-to-b from-[color:var(--theme-primary)] to-[color:var(--theme-accent)] rounded-r-full"></div>
                         )}
                       </Link>
                     </div>
 
                     {/* Dropdown items */}
                     {(settingsExpanded || isAnyChildActive) && !isCollapsed && (
-                      <div className="ml-4 mt-1 space-y-1 pl-2 border-l border-slate-700">
+                      <div className="ml-4 mt-1 space-y-1 pl-2 border-l border-[color:var(--theme-border)]">
                         {item.children.map((child) => {
                           const isChildActive = pathname === child.href;
                           return (
@@ -159,11 +159,11 @@ const Sidebar = ({ isOpen, toggleSidebar, isCollapsed, toggleCollapse }) => {
                                 flex items-center gap-2 rounded-lg px-2 py-1.5
                                 transition-all duration-200
                                 ${isChildActive
-                                  ? 'bg-indigo-600/40 text-white font-medium'
-                                  : 'hover:bg-slate-700/50 text-slate-400 hover:text-white'}
+                                  ? 'bg-[color:var(--theme-primary)]/40 text-[color:var(--theme-text)] font-medium'
+                                  : 'hover:bg-[color:var(--theme-primary)]/20 text-[color:var(--theme-text)]/60 hover:text-[color:var(--theme-text)]'}
                               `}
                             >
-                              <div className="w-1.5 h-1.5 rounded-full bg-slate-500"></div>
+                              <div className="w-1.5 h-1.5 rounded-full bg-[color:var(--theme-text)]/40"></div>
                               <span className="text-sm">{child.label}</span>
                             </Link>
                           );
@@ -183,17 +183,17 @@ const Sidebar = ({ isOpen, toggleSidebar, isCollapsed, toggleCollapse }) => {
                       transition-all duration-200
                       group relative
                       ${isActive
-                        ? 'bg-gradient-to-r from-indigo-600/30 to-purple-600/30 text-white shadow-md font-medium'
-                        : 'hover:bg-slate-700/50 text-slate-300 hover:text-white'}
+                        ? 'bg-gradient-to-r from-[color:var(--theme-primary)]/30 to-[color:var(--theme-accent)]/30 text-[color:var(--theme-text)] shadow-md font-medium'
+                        : 'hover:bg-[color:var(--theme-primary)]/30 text-[color:var(--theme-text)]/70 hover:text-[color:var(--theme-text)]'}
                       ${isCollapsed && !isHovered ? 'justify-center' : 'justify-start'}
                     `}
                   >
-                    <Icon className={`h-5 w-5 ${isActive ? 'text-indigo-300' : 'text-slate-400'}`} />
+                    <Icon className={`h-5 w-5 ${isActive ? 'text-[color:var(--theme-accent)]' : 'text-[color:var(--theme-text)]/60'}`} />
                     {shouldShowLabels && (
                       <span className="font-medium transition-all duration-200">{item.label}</span>
                     )}
                     {isActive && (
-                      <div className="absolute left-0 top-1/2 transform -translate-y-1/2 w-1 h-8 bg-gradient-to-b from-indigo-500 to-purple-500 rounded-r-full"></div>
+                      <div className="absolute left-0 top-1/2 transform -translate-y-1/2 w-1 h-8 bg-gradient-to-b from-[color:var(--theme-primary)] to-[color:var(--theme-accent)] rounded-r-full"></div>
                     )}
                   </Link>
                 );
@@ -202,33 +202,33 @@ const Sidebar = ({ isOpen, toggleSidebar, isCollapsed, toggleCollapse }) => {
           </nav>
         </div>
 
-        <div className="p-4 border-t border-slate-700 bg-slate-800/30 backdrop-blur-sm">
+        <div className="p-4 border-t border-[color:var(--theme-border)] bg-[color:var(--theme-secondary)]/30 backdrop-blur-sm">
           {shouldShowLabels ? (
             <div className="flex items-center gap-3">
               <div className="relative">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-r from-indigo-500/30 to-purple-500/30 flex items-center justify-center text-white font-bold border border-slate-600">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-r from-[color:var(--theme-primary)]/30 to-[color:var(--theme-accent)]/30 flex items-center justify-center text-[color:var(--theme-text)] font-bold border border-[color:var(--theme-border)]">
                   <span className="text-sm">U</span>
                 </div>
-                <span className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-slate-900"></span>
+                <span className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-[color:var(--theme-background)]"></span>
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium truncate text-white">User Name</p>
-                <p className="text-xs text-slate-400 truncate">user@example.com</p>
+                <p className="text-sm font-medium truncate text-[color:var(--theme-text)]">User Name</p>
+                <p className="text-xs text-[color:var(--theme-text)]/70 truncate">user@example.com</p>
               </div>
             </div>
           ) : (
             <div className="flex justify-center">
               <div className="relative">
-                <div className="w-8 h-8 rounded-full bg-gradient-to-r from-indigo-500/30 to-purple-500/30 flex items-center justify-center text-white font-bold border border-slate-600">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-r from-[color:var(--theme-primary)]/30 to-[color:var(--theme-accent)]/30 flex items-center justify-center text-[color:var(--theme-text)] font-bold border border-[color:var(--theme-border)]">
                   <span className="text-xs">U</span>
                 </div>
-                <span className="absolute bottom-0 right-0 w-2 h-2 bg-green-500 rounded-full border border-slate-900"></span>
+                <span className="absolute bottom-0 right-0 w-2 h-2 bg-green-500 rounded-full border border-[color:var(--theme-background)]"></span>
               </div>
             </div>
           )}
         </div>
 
-        <div className={`px-4 py-3 text-xs text-center text-slate-500 ${shouldShowLabels ? 'block' : 'hidden'}`}>
+        <div className={`px-4 py-3 text-xs text-center text-[color:var(--theme-text)]/70 ${shouldShowLabels ? 'block' : 'hidden'}`}>
           <p>© {new Date().getFullYear()} AccountApp</p>
           <p className="mt-1">Secure & Private</p>
         </div>

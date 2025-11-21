@@ -46,10 +46,10 @@ const AccountForm = ({ onSubmit, initialData = null, mode = 'create' }) => {
   };
 
   return (
-    <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
+    <div className="bg-[color:var(--theme-card-bg)] border border-[color:var(--theme-border)] rounded-xl p-6 shadow-sm">
       <div className="mb-6">
-        <h2 className="text-2xl font-bold text-gray-800">{mode === 'create' ? 'Create New Account' : 'Edit Account'}</h2>
-        <p className="text-gray-600">
+        <h2 className="text-2xl font-bold text-[color:var(--theme-text)]">{mode === 'create' ? 'Create New Account' : 'Edit Account'}</h2>
+        <p className="text-[color:var(--theme-text)]/70">
           {mode === 'create'
             ? 'Fill in the details to create a new account'
             : 'Update the account details and save changes'}
@@ -65,9 +65,9 @@ const AccountForm = ({ onSubmit, initialData = null, mode = 'create' }) => {
               name="name"
               render={({ field }) => (
               <div className="space-y-2">
-                <FormLabel className="text-sm font-bold text-gray-700 block">Name *</FormLabel>
+                <FormLabel className="text-sm font-bold text-[color:var(--theme-text)] block">Name *</FormLabel>
                 <FormControl>
-                  <div className="border border-gray-300 rounded-lg p-2">
+                  <div className="border border-[color:var(--theme-border)] rounded-lg p-2">
                     <Input
                       placeholder="Enter account name"
                       {...field}
@@ -75,7 +75,7 @@ const AccountForm = ({ onSubmit, initialData = null, mode = 'create' }) => {
                         "w-full border-0 focus:ring-0 p-0",
                         form.formState.errors.name
                           ? "focus:ring-1 focus:ring-red-500"
-                          : "focus:ring-1 focus:ring-blue-500"
+                          : "focus:ring-1 focus:ring-[color:var(--theme-primary)]"
                       )}
                     />
                   </div>
@@ -286,14 +286,14 @@ const AccountForm = ({ onSubmit, initialData = null, mode = 'create' }) => {
           </div>
 
           {/* Button Group */}
-          <div className="flex flex-col sm:flex-row justify-between gap-3 pt-4 border-t border-gray-200">
+          <div className="flex flex-col sm:flex-row justify-between gap-3 pt-4 border-t border-[color:var(--theme-border)]">
             <Button
               type="button"
               variant="outline"
               onClick={() => {
                 form.reset();
               }}
-              className="px-4 py-2 rounded-lg border-gray-300 text-gray-700 hover:bg-gray-50"
+              className="px-4 py-2 rounded-lg border-[color:var(--theme-border)] text-[color:var(--theme-text)] hover:bg-[color:var(--theme-card-bg)]/70"
             >
               Reset
             </Button>
@@ -303,14 +303,14 @@ const AccountForm = ({ onSubmit, initialData = null, mode = 'create' }) => {
                 type="button"
                 variant="outline"
                 onClick={() => window.location.href = '/dashboard/accounts'}
-                className="px-4 py-2 rounded-lg border-gray-300 text-gray-700 hover:bg-gray-50 sm:order-1"
+                className="px-4 py-2 rounded-lg border-[color:var(--theme-border)] text-[color:var(--theme-text)] hover:bg-[color:var(--theme-card-bg)]/70 sm:order-1"
               >
                 Go to Account List
               </Button> */}
 
               <Button
                 type="submit"
-                className="px-6 py-2 rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white transition-all duration-200 shadow-md hover:shadow-lg sm:order-2"
+                className="px-6 py-2 rounded-lg bg-gradient-to-r from-[color:var(--theme-primary)] to-[color:var(--theme-secondary)] hover:from-[color:var(--theme-primary)]/80 hover:to-[color:var(--theme-secondary)]/80 text-white transition-all duration-200 shadow-md hover:shadow-lg sm:order-2"
               >
                 {mode === 'edit' ? 'Update Account' : 'Create Account'}
               </Button>
