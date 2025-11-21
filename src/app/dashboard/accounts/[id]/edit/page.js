@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import DashboardLayout from '@/components/layout/DashboardLayout';
 import AccountForm from '@/components/accounts/AccountForm';
+import LoadingSpinner from '@/components/UI/LoadingSpinner';
 import { Button } from '@/components/UI/Button';
 
 const EditAccountPage = ({ params }) => {
@@ -47,9 +48,7 @@ const EditAccountPage = ({ params }) => {
   if (loading) {
     return (
       <DashboardLayout>
-        <div className="flex justify-center items-center h-64">
-          <p className="text-lg">Loading account data...</p>
-        </div>
+        <LoadingSpinner message="Loading Account Details..." />
       </DashboardLayout>
     );
   }

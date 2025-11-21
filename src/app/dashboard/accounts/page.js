@@ -5,6 +5,7 @@ import axios from 'axios';
 import DashboardLayout from '@/components/layout/DashboardLayout';
 import AccountTable from '@/components/accounts/AccountTable';
 import AccountForm from '@/components/accounts/AccountForm';
+import LoadingSpinner from '@/components/UI/LoadingSpinner';
 import { Button } from '@/components/UI/Button';
 import { Search, Plus } from 'lucide-react';
 
@@ -81,9 +82,7 @@ const AccountsPage = () => {
   if (loading) {
     return (
       <DashboardLayout>
-        <div className="flex justify-center items-center h-64">
-          <p className="text-lg">Loading accounts...</p>
-        </div>
+        <LoadingSpinner message="Loading your Accounts..." />
       </DashboardLayout>
     );
   }
