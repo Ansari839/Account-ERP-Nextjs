@@ -184,22 +184,94 @@ export const ThemeProvider = ({ children }) => {
 
     const root = document.documentElement;
 
-    // Apply palette colors
+    // Convert hex colors to HSL for CSS variables
+    const hexToHSL = (hex) => {
+      // Remove the hash if present
+      hex = hex.replace(/^#/, '');
+
+      // Parse r, g, b values
+      let r, g, b;
+      if (hex.length === 3) {
+        r = parseInt(hex[0] + hex[0], 16);
+        g = parseInt(hex[1] + hex[1], 16);
+        b = parseInt(hex[2] + hex[2], 16);
+      } else if (hex.length === 6) {
+        r = parseInt(hex.substring(0, 2), 16);
+        g = parseInt(hex.substring(2, 4), 16);
+        b = parseInt(hex.substring(4, 6), 16);
+      } else {
+        // Default to black if invalid
+        return "0 0% 0%";
+      }
+
+      // Normalize values to [0, 1]
+      r /= 255;
+      g /= 255;
+      b /= 255;
+
+      // Find min and max values
+      const max = Math.max(r, g, b);
+      const min = Math.min(r, g, b);
+
+      let h, s, l = (max + min) / 2;
+
+      if (max === min) {
+        h = s = 0; // achromatic
+      } else {
+        const d = max - min;
+        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+
+        switch (max) {
+          case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+          case g: h = (b - r) / d + 2; break;
+          case b: h = (r - g) / d + 4; break;
+        }
+
+        h = Math.round(h * 60);
+        if (h < 0) h += 360;
+      }
+
+      s = Math.round(s * 100);
+      l = Math.round(l * 100);
+
+      return `${h} ${s}% ${l}%`;
+    };
+
+    // Apply palette colors to new CSS variables
+    root.style.setProperty('--primary', hexToHSL(palette.colors.primary));
+    root.style.setProperty('--secondary', hexToHSL(palette.colors.secondary));
+    root.style.setProperty('--accent', hexToHSL(palette.colors.accent));
+    root.style.setProperty('--background', hexToHSL(palette.colors.background));
+
+    // Apply text color based on theme (determine if light or dark background)
+    const isLightBackground = parseInt(hexToHSL(palette.colors.background).split(' ')[2]) > 50;
+    const textColor = darkMode ? '0 0% 98%' : isLightBackground ? '240 10% 3.9%' : '0 0% 98%';
+    root.style.setProperty('--text', textColor);
+
+    // Apply card and border colors
+    const cardColor = darkMode ? '#1f2937' : '#ffffff';
+    const borderColor = darkMode ? '#374151' : '#e5e7eb';
+
+    root.style.setProperty('--card', hexToHSL(cardColor));
+    root.style.setProperty('--border', hexToHSL(borderColor));
+
+    // Apply chart colors based on primary and secondary
+    root.style.setProperty('--chart-primary', hexToHSL(palette.colors.primary));
+    root.style.setProperty('--chart-secondary', hexToHSL(palette.colors.secondary));
+
+    // Also apply to the legacy variables for backward compatibility
     root.style.setProperty('--theme-primary', palette.colors.primary);
     root.style.setProperty('--theme-secondary', palette.colors.secondary);
     root.style.setProperty('--theme-accent', palette.colors.accent);
     root.style.setProperty('--theme-background', palette.colors.background);
+    root.style.setProperty('--theme-text', darkMode ? '#ffffff' : '#000000');
+    root.style.setProperty('--theme-card-bg', cardColor);
+    root.style.setProperty('--theme-border', borderColor);
 
     // Apply dark mode if needed
     if (darkMode) {
-      root.style.setProperty('--theme-text', '#ffffff');
-      root.style.setProperty('--theme-card-bg', '#1f2937');
-      root.style.setProperty('--theme-border', '#374151');
       root.setAttribute('data-theme', 'dark');
     } else {
-      root.style.setProperty('--theme-text', '#000000');
-      root.style.setProperty('--theme-card-bg', '#ffffff');
-      root.style.setProperty('--theme-border', '#e5e7eb');
       root.setAttribute('data-theme', 'light');
     }
   };

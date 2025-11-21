@@ -1,75 +1,42 @@
 import Account from '@/models/Account';
 import dbConnect from '@/lib/mongodb';
-import { createApiResponse, createApiError } from '@/helpers/apiResponse';
 
 export async function GET(request) {
   try {
-    try {
-      await dbConnect();
-    } catch (dbError) {
-      console.error('Database connection failed:', dbError.message);
-      // Return empty list if DB connection fails
-      return createApiResponse({
-        accounts: [],
-        totalPages: 0,
-        currentPage: 1,
-        total: 0
-      });
-    }
-
-    const url = new URL(request.url);
-    const { searchParams } = url;
-    const page = parseInt(searchParams.get('page')) || 1;
-    const limit = parseInt(searchParams.get('limit')) || 10;
-
-    try {
-      const accounts = await Account.find({})
-        .skip((page - 1) * limit)
-        .limit(limit)
-        .sort({ createdAt: -1 });
-      
-      const total = await Account.countDocuments({});
-
-      return createApiResponse({
-        accounts,
-        totalPages: Math.ceil(total / limit),
-        currentPage: page,
-        total
-      });
-    } catch (queryError) {
-      console.error('Database query failed:', queryError);
-      return createApiResponse({
-        accounts: [],
-        totalPages: 0,
-        currentPage: 1,
-        total: 0
-      });
-    }
+    await dbConnect();
+    
+    const accounts = await Account.find({}).sort({ createdAt: -1 });
+    
+    return new Response(
+      JSON.stringify(accounts),
+      { status: 200, headers: { 'Content-Type': 'application/json' } }
+    );
   } catch (error) {
-    return createApiError(error.message, 500);
+    console.error('Error fetching accounts:', error);
+    return new Response(
+      JSON.stringify({ error: 'Failed to fetch accounts' }),
+      { status: 500, headers: { 'Content-Type': 'application/json' } }
+    );
   }
 }
 
 export async function POST(request) {
   try {
-    try {
-      await dbConnect();
-    } catch (dbError) {
-      console.error('Database connection failed:', dbError.message);
-      return createApiError('Database connection failed', 500);
-    }
-
+    await dbConnect();
+    
     const body = await request.json();
-
-    try {
-      const newAccount = new Account(body);
-      const savedAccount = await newAccount.save();
-      return createApiResponse(savedAccount, 201);
-    } catch (saveError) {
-      console.error('Error saving account:', saveError);
-      return createApiError(saveError.message || 'Error creating account', 400);
-    }
+    const newAccount = new Account(body);
+    const savedAccount = await newAccount.save();
+    
+    return new Response(
+      JSON.stringify(savedAccount),
+      { status: 201, headers: { 'Content-Type': 'application/json' } }
+    );
   } catch (error) {
-    return createApiError(error.message, 400);
+    console.error('Error creating account:', error);
+    return new Response(
+      JSON.stringify({ error: 'Failed to create account' }),
+      { status: 500, headers: { 'Content-Type': 'application/json' } }
+    );
   }
 }

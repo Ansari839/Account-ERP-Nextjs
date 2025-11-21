@@ -53,6 +53,9 @@
   --border: 240 3.7% 15.9%;
   --input: 240 3.7% 15.9%;
   --ring: 217.2 91.2% 59.8%;
+  --text: 0 0% 98%;
+  --chart-primary: 220 70% 50%;
+  --chart-secondary: 160 60% 45%;
 
   /* Dark sidebar colors */
   --sidebar-background: 240 5.9% 10%;
@@ -131,13 +134,24 @@
 
 /* Custom theme variables for dynamic themes */
 :root {
-  --theme-primary: #1f2937; /* Default to gray-800 */
-  --theme-secondary: #4b5563; /* Default to gray-600 */
-  --theme-accent: #3b82f6; /* Default to blue-500 */
-  --theme-background: #f9fafb; /* Default to gray-50 */
-  --theme-text: #000000; /* Default to black */
-  --theme-card-bg: #ffffff; /* Default to white */
-  --theme-border: #e5e7eb; /* Default to gray-200 */
+  --primary: 222.2 84% 4.9%;
+  --secondary: 210 40% 96.1%;
+  --accent: 210 40% 96.1%;
+  --background: 0 0% 100%;
+  --text: 240 10% 3.9%;
+  --card: 0 0% 100%;
+  --border: 214.3 31.8% 91.4%;
+  --chart-primary: 12 76% 61%;
+  --chart-secondary: 173 58% 39%;
+
+  /* For backwards compatibility */
+  --theme-primary: hsl(222.2, 84%, 4.9%); /* Default to gray-800 */
+  --theme-secondary: hsl(210, 40%, 96.1%); /* Default to gray-600 */
+  --theme-accent: hsl(210, 40%, 96.1%); /* Default to blue-500 */
+  --theme-background: hsl(0, 0%, 100%); /* Default to gray-50 */
+  --theme-text: hsl(240, 10%, 3.9%); /* Default to black */
+  --theme-card-bg: hsl(0, 0%, 100%); /* Default to white */
+  --theme-border: hsl(214.3, 31.8%, 91.4%); /* Default to gray-200 */
 }
 
 @theme inline {

@@ -29,8 +29,8 @@ const AccountTable = ({ accounts = [], onDelete, onEdit, setShowForm, className 
         className={cn(
           "text-xs font-medium",
           type === 'DR'
-            ? "bg-green-100 text-green-800 hover:bg-green-100 dark:bg-green-900 dark:text-green-100"
-            : "bg-orange-100 text-orange-800 hover:bg-orange-100 dark:bg-orange-900 dark:text-orange-100"
+            ? "bg-[color:var(--theme-secondary)]/20 text-[color:var(--theme-text)] hover:bg-[color:var(--theme-secondary)]/30"
+            : "bg-[color:var(--theme-accent)]/20 text-[color:var(--theme-text)] hover:bg-[color:var(--theme-accent)]/30"
         )}
       >
         {type}
@@ -76,7 +76,7 @@ const AccountTable = ({ accounts = [], onDelete, onEdit, setShowForm, className 
                   variant="ghost"
                   size="sm"
                   onClick={() => onDelete(account._id)}
-                  className="p-2 hover:bg-red-50 hover:text-red-500 transition-colors"
+                  className="p-2 hover:bg-[color:var(--theme-card-bg)]/70 transition-colors"
                 >
                   <Trash2 className="h-4 w-4 text-[color:var(--theme-text)]/60" />
                 </Button>
@@ -166,17 +166,17 @@ const AccountTable = ({ accounts = [], onDelete, onEdit, setShowForm, className 
                         onEdit(account);
                         setShowForm(true);
                       }}
-                      className="p-2 hover:bg-gray-100 transition-colors"
+                      className="p-2 hover:bg-[color:var(--theme-card-bg)]/70 transition-colors"
                     >
-                      <Edit className="h-4 w-4 text-gray-600" />
+                      <Edit className="h-4 w-4 text-[color:var(--theme-text)]/60" />
                     </Button>
                     <Button
                       variant="ghost"
                       size="sm"
                       onClick={() => onDelete(account._id)}
-                      className="p-2 hover:bg-red-50 hover:text-red-500 transition-colors"
+                      className="p-2 hover:bg-[color:var(--theme-card-bg)]/70 transition-colors"
                     >
-                      <Trash2 className="h-4 w-4 text-gray-600" />
+                      <Trash2 className="h-4 w-4 text-[color:var(--theme-text)]/60" />
                     </Button>
                   </div>
                 </TableCell>
@@ -191,13 +191,13 @@ const AccountTable = ({ accounts = [], onDelete, onEdit, setShowForm, className 
   return (
     <div className="w-full">
       <div className="mb-4 flex justify-between items-center">
-        <h2 className="text-xl font-bold text-gray-800">Account List</h2>
+        <h2 className="text-xl font-bold text-[color:var(--theme-text)]">Account List</h2>
         <Button
           onClick={() => {
             onEdit(null);
             setShowForm(true);
           }}
-          className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white rounded-lg px-4 py-2 shadow-md hover:shadow-lg transition-all duration-200"
+          className="bg-gradient-to-r from-[color:var(--theme-primary)] to-[color:var(--theme-secondary)] hover:from-[color:var(--theme-primary)]/80 hover:to-[color:var(--theme-secondary)]/80 text-white rounded-lg px-4 py-2 shadow-md hover:shadow-lg transition-all duration-200"
         >
           Create New Account
         </Button>

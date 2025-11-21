@@ -3,40 +3,44 @@ import mongoose from 'mongoose';
 const accountSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true
+    required: true,
+    trim: true,
   },
   city: {
     type: String,
-    default: ''
+    default: '',
+    trim: true,
   },
   address: {
     type: String,
-    default: ''
+    default: '',
+    trim: true,
   },
   telephone: {
     type: String,
-    default: ''
+    default: '',
+    trim: true,
   },
   headOfAccount: {
     type: String,
-    enum: ['Asset', 'Liability', 'Capital', 'Income', 'Expense'],
-    required: true
+    required: true,
+    enum: ['Asset', 'Liability', 'Capital', 'Income', 'Expense']
   },
   openingBalance: {
     type: Number,
-    default: 0
+    default: 0,
   },
   openingType: {
     type: String,
-    enum: ['DR', 'CR'],
-    default: 'DR'
+    required: true,
+    enum: ['DR', 'CR']
   },
   category: {
     type: String,
-    default: ''
+    default: '',
   }
 }, {
-  timestamps: true
+  timestamps: true, // This will add createdAt and updatedAt automatically
 });
 
 const Account = mongoose.models.Account || mongoose.model('Account', accountSchema);

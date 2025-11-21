@@ -11,6 +11,7 @@ import {
   FileText,
   BarChart3,
   Building,
+  Box,
   ChevronDown,
   ChevronRight
 } from 'lucide-react';
@@ -19,6 +20,7 @@ const Sidebar = ({ isOpen, toggleSidebar, isCollapsed, toggleCollapse }) => {
   const pathname = usePathname();
   const [isHovered, setIsHovered] = useState(false);
   const [settingsExpanded, setSettingsExpanded] = useState(false);
+  const [productsExpanded, setProductsExpanded] = useState(false);
 
   // Navigation items
   const navItems = [
@@ -27,6 +29,15 @@ const Sidebar = ({ isOpen, toggleSidebar, isCollapsed, toggleCollapse }) => {
     { id: 'company', label: 'Company', href: '/dashboard/company', icon: Building },
     { id: 'transactions', label: 'Transactions', href: '/dashboard/transactions', icon: FileText },
     { id: 'reports', label: 'Reports', href: '/dashboard/reports', icon: BarChart3 },
+    {
+      id: 'products',
+      label: 'Products',
+      href: '/dashboard/products/category', // This will be the main route for the dropdown
+      icon: Box,
+      children: [
+        { id: 'category', label: 'Category', href: '/dashboard/products/category' }
+      ]
+    },
     {
       id: 'settings',
       label: 'Settings',
@@ -108,7 +119,11 @@ const Sidebar = ({ isOpen, toggleSidebar, isCollapsed, toggleCollapse }) => {
               const isAnyChildActive = item.children?.some(child => child.href === pathname);
 
               if (item.children) {
-                // Parent item with children (like Settings)
+                // Parent item with children (like Settings or Products)
+                const isItemActive = activeItem?.id === item.id;
+                const isAnyItemChildActive = item.children?.some(child => child.href === pathname);
+                const isExpanded = item.id === 'settings' ? settingsExpanded : item.id === 'products' ? productsExpanded : false;
+
                 return (
                   <div key={item.id}>
                     <div className="relative">
@@ -118,13 +133,13 @@ const Sidebar = ({ isOpen, toggleSidebar, isCollapsed, toggleCollapse }) => {
                           flex items-center gap-3 rounded-lg px-3 py-2.5
                           transition-all duration-200
                           group relative
-                          ${(isActive || isSettingsActive || isAnyChildActive)
+                          ${(isItemActive || isAnyItemChildActive)
                             ? 'bg-gradient-to-r from-[color:var(--theme-primary)]/30 to-[color:var(--theme-accent)]/30 text-[color:var(--theme-text)] shadow-md font-medium'
                             : 'hover:bg-[color:var(--theme-primary)]/30 text-[color:var(--theme-text)]/70 hover:text-[color:var(--theme-text)]'}
                           ${isCollapsed && !isHovered ? 'justify-center' : 'justify-start'}
                         `}
                       >
-                        <Icon className={`h-5 w-5 ${(isActive || isSettingsActive || isAnyChildActive) ? 'text-[color:var(--theme-accent)]' : 'text-[color:var(--theme-text)]/60'}`} />
+                        <Icon className={`h-5 w-5 ${(isItemActive || isAnyItemChildActive) ? 'text-[color:var(--theme-accent)]' : 'text-[color:var(--theme-text)]/60'}`} />
                         {shouldShowLabels && (
                           <span className="font-medium transition-all duration-200 flex-1">{item.label}</span>
                         )}
@@ -133,21 +148,25 @@ const Sidebar = ({ isOpen, toggleSidebar, isCollapsed, toggleCollapse }) => {
                             type="button"
                             onClick={(e) => {
                               e.preventDefault();
-                              setSettingsExpanded(!settingsExpanded);
+                              if(item.id === 'settings') {
+                                setSettingsExpanded(!settingsExpanded);
+                              } else if(item.id === 'products') {
+                                setProductsExpanded(!productsExpanded);
+                              }
                             }}
                             className="flex items-center"
                           >
-                            {settingsExpanded ? <ChevronDown className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
+                            {isExpanded ? <ChevronDown className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
                           </button>
                         )}
-                        {(isActive || isSettingsActive || isAnyChildActive) && !isCollapsed && (
+                        {(isItemActive || isAnyItemChildActive) && !isCollapsed && (
                           <div className="absolute left-0 top-1/2 transform -translate-y-1/2 w-1 h-8 bg-gradient-to-b from-[color:var(--theme-primary)] to-[color:var(--theme-accent)] rounded-r-full"></div>
                         )}
                       </Link>
                     </div>
 
                     {/* Dropdown items */}
-                    {(settingsExpanded || isAnyChildActive) && !isCollapsed && (
+                    {(isExpanded || isAnyItemChildActive) && !isCollapsed && (
                       <div className="ml-4 mt-1 space-y-1 pl-2 border-l border-[color:var(--theme-border)]">
                         {item.children.map((child) => {
                           const isChildActive = pathname === child.href;

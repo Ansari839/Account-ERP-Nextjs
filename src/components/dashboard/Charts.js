@@ -35,7 +35,13 @@ const DashboardCharts = ({ className }) => {
     { name: 'Loan', total: 1890 },
   ];
 
-  const COLORS = ['#4f46e5', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6'];
+  const COLORS = [
+    'hsl(var(--chart-primary))',
+    'hsl(var(--chart-secondary))',
+    'hsl(var(--theme-accent))',
+    'hsl(var(--theme-primary))',
+    'hsl(var(--theme-secondary))'
+  ];
 
   const customTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
@@ -79,12 +85,12 @@ const DashboardCharts = ({ className }) => {
                 dataKey="name"
                 axisLine={false}
                 tickLine={false}
-                tick={{ fill: 'hsl(var(--muted-foreground))' }}
+                tick={{ fill: 'hsl(var(--text))' }}
               />
               <YAxis
                 axisLine={false}
                 tickLine={false}
-                tick={{ fill: 'hsl(var(--muted-foreground))' }}
+                tick={{ fill: 'hsl(var(--text))' }}
               />
               <Tooltip content={customTooltip} />
               <Legend
@@ -94,19 +100,19 @@ const DashboardCharts = ({ className }) => {
               <Line
                 type="monotone"
                 dataKey="total"
-                stroke="#4f46e5"
+                stroke="hsl(var(--chart-primary))"
                 strokeWidth={2}
-                dot={{ r: 4, fill: '#4f46e5' }}
-                activeDot={{ r: 6, fill: '#4f46e5' }}
+                dot={{ r: 4, fill: 'hsl(var(--chart-primary))' }}
+                activeDot={{ r: 6, fill: 'hsl(var(--chart-primary))' }}
                 name="Total Accounts"
               />
               <Line
                 type="monotone"
                 dataKey="active"
-                stroke="#10b981"
+                stroke="hsl(var(--chart-secondary))"
                 strokeWidth={2}
-                dot={{ r: 4, fill: '#10b981' }}
-                activeDot={{ r: 6, fill: '#10b981' }}
+                dot={{ r: 4, fill: 'hsl(var(--chart-secondary))' }}
+                activeDot={{ r: 6, fill: 'hsl(var(--chart-secondary))' }}
                 name="Active Accounts"
               />
             </LineChart>
@@ -138,12 +144,12 @@ const DashboardCharts = ({ className }) => {
                 dataKey="name"
                 axisLine={false}
                 tickLine={false}
-                tick={{ fill: 'hsl(var(--muted-foreground))' }}
+                tick={{ fill: 'hsl(var(--text))' }}
               />
               <YAxis
                 axisLine={false}
                 tickLine={false}
-                tick={{ fill: 'hsl(var(--muted-foreground))' }}
+                tick={{ fill: 'hsl(var(--text))' }}
               />
               <Tooltip content={customTooltip} />
               <Legend

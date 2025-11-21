@@ -1,92 +1,89 @@
 import Account from '@/models/Account';
 import dbConnect from '@/lib/mongodb';
-import { createApiResponse, createApiError } from '@/helpers/apiResponse';
 
 export async function GET(request, { params }) {
   try {
     const { id } = await params;
-    
-    try {
-      await dbConnect();
-    } catch (dbError) {
-      console.error('Database connection failed:', dbError.message);
-      return createApiError('Database connection failed', 500);
+    await dbConnect();
+
+    const account = await Account.findById(id);
+
+    if (!account) {
+      return new Response(
+        JSON.stringify({ error: 'Account not found' }),
+        { status: 404, headers: { 'Content-Type': 'application/json' } }
+      );
     }
 
-    try {
-      const account = await Account.findById(id);
-      
-      if (!account) {
-        return createApiError('Account not found', 404);
-      }
-      
-      return createApiResponse(account);
-    } catch (queryError) {
-      console.error('Error fetching account:', queryError);
-      return createApiError(queryError.message || 'Error fetching account', 500);
-    }
+    return new Response(
+      JSON.stringify(account),
+      { status: 200, headers: { 'Content-Type': 'application/json' } }
+    );
   } catch (error) {
-    return createApiError(error.message, 500);
+    console.error('Error fetching account:', error);
+    return new Response(
+      JSON.stringify({ error: 'Failed to fetch account' }),
+      { status: 500, headers: { 'Content-Type': 'application/json' } }
+    );
   }
 }
 
 export async function PUT(request, { params }) {
   try {
     const { id } = await params;
+    await dbConnect();
+
     const body = await request.json();
-    
-    try {
-      await dbConnect();
-    } catch (dbError) {
-      console.error('Database connection failed:', dbError.message);
-      return createApiError('Database connection failed', 500);
+
+    const updatedAccount = await Account.findByIdAndUpdate(
+      id,
+      body,
+      { new: true, runValidators: true } // Return updated document and run validations
+    );
+
+    if (!updatedAccount) {
+      return new Response(
+        JSON.stringify({ error: 'Account not found' }),
+        { status: 404, headers: { 'Content-Type': 'application/json' } }
+      );
     }
 
-    try {
-      const updatedAccount = await Account.findByIdAndUpdate(
-        id,
-        body,
-        { new: true, runValidators: true }
-      );
-      
-      if (!updatedAccount) {
-        return createApiError('Account not found', 404);
-      }
-      
-      return createApiResponse(updatedAccount);
-    } catch (updateError) {
-      console.error('Error updating account:', updateError);
-      return createApiError(updateError.message || 'Error updating account', 400);
-    }
+    return new Response(
+      JSON.stringify(updatedAccount),
+      { status: 200, headers: { 'Content-Type': 'application/json' } }
+    );
   } catch (error) {
-    return createApiError(error.message, 400);
+    console.error('Error updating account:', error);
+    return new Response(
+      JSON.stringify({ error: 'Failed to update account' }),
+      { status: 500, headers: { 'Content-Type': 'application/json' } }
+    );
   }
 }
 
 export async function DELETE(request, { params }) {
   try {
     const { id } = await params;
-    
-    try {
-      await dbConnect();
-    } catch (dbError) {
-      console.error('Database connection failed:', dbError.message);
-      return createApiError('Database connection failed', 500);
+    await dbConnect();
+
+    const deletedAccount = await Account.findByIdAndDelete(id);
+
+    if (!deletedAccount) {
+      return new Response(
+        JSON.stringify({ error: 'Account not found' }),
+        { status: 404, headers: { 'Content-Type': 'application/json' } }
+      );
     }
 
-    try {
-      const deletedAccount = await Account.findByIdAndDelete(id);
-      
-      if (!deletedAccount) {
-        return createApiError('Account not found', 404);
-      }
-      
-      return createApiResponse({ message: 'Account deleted successfully' });
-    } catch (deleteError) {
-      console.error('Error deleting account:', deleteError);
-      return createApiError(deleteError.message || 'Error deleting account', 500);
-    }
+    return new Response(
+      JSON.stringify({ message: 'Account deleted successfully' }),
+      { status: 200, headers: { 'Content-Type': 'application/json' } }
+    );
   } catch (error) {
-    return createApiError(error.message, 500);
+    console.error('Error deleting account:', error);
+    return new Response(
+      JSON.stringify({ error: 'Failed to delete account' }),
+      { status: 500, headers: { 'Content-Type': 'application/json' } }
+    );
   }
 }

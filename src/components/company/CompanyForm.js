@@ -1,10 +1,10 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Input from '@/components/ui/Input';
-import { Button } from '@/components/ui/Button';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/Select';
-import { Card, CardContent } from '@/components/ui/Card';
+import Input from '@/components/UI/Input';
+import { Button } from '@/components/UI/Button';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/UI/Select';
+import { Card, CardContent } from '@/components/UI/Card';
 import { toast } from 'sonner'; // Using sonner for toasts
 
 const CompanyForm = ({ initialData, loading }) => {
@@ -209,8 +209,8 @@ const CompanyForm = ({ initialData, loading }) => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Company Name */}
         <div className="space-y-2">
-          <label htmlFor="companyName" className="text-sm font-bold text-gray-700 block">Company Name *</label>
-          <div className="border border-gray-300 rounded-lg p-2">
+          <label htmlFor="companyName" className="text-sm font-bold text-[color:var(--theme-text)] block">Company Name *</label>
+          <div className="border border-[color:var(--theme-border)] rounded-lg p-2">
             <Input
               id="companyName"
               name="companyName"
@@ -221,13 +221,13 @@ const CompanyForm = ({ initialData, loading }) => {
               className="w-full border-0 focus:ring-0 p-0"
             />
           </div>
-          {errors.companyName && <p className="text-sm text-red-500">{errors.companyName}</p>}
+          {errors.companyName && <p className="text-sm text-[color:var(--theme-accent)]">{errors.companyName}</p>}
         </div>
 
         {/* Currency */}
         <div className="space-y-2">
-          <label htmlFor="currency" className="text-sm font-bold text-gray-700 block">Currency *</label>
-          <div className="border border-gray-300 rounded-lg p-2">
+          <label htmlFor="currency" className="text-sm font-bold text-[color:var(--theme-text)] block">Currency *</label>
+          <div className="border border-[color:var(--theme-border)] rounded-lg p-2">
             <Select
               value={formData.currency?.code}
               onValueChange={handleCurrencyChange}
@@ -245,13 +245,13 @@ const CompanyForm = ({ initialData, loading }) => {
               </SelectContent>
             </Select>
           </div>
-          {errors.currency && <p className="text-sm text-red-500">{errors.currency}</p>}
+          {errors.currency && <p className="text-sm text-[color:var(--theme-accent)]">{errors.currency}</p>}
         </div>
 
         {/* Email */}
         <div className="space-y-2">
-          <label htmlFor="email" className="text-sm font-bold text-gray-700 block">Email</label>
-          <div className="border border-gray-300 rounded-lg p-2">
+          <label htmlFor="email" className="text-sm font-bold text-[color:var(--theme-text)] block">Email</label>
+          <div className="border border-[color:var(--theme-border)] rounded-lg p-2">
             <Input
               id="email"
               name="email"
@@ -263,13 +263,13 @@ const CompanyForm = ({ initialData, loading }) => {
               className="w-full border-0 focus:ring-0 p-0"
             />
           </div>
-          {errors.email && <p className="text-sm text-red-500">{errors.email}</p>}
+          {errors.email && <p className="text-sm text-[color:var(--theme-accent)]">{errors.email}</p>}
         </div>
 
         {/* NTN */}
         <div className="space-y-2">
-          <label htmlFor="ntn" className="text-sm font-bold text-gray-700 block">NTN</label>
-          <div className="border border-gray-300 rounded-lg p-2">
+          <label htmlFor="ntn" className="text-sm font-bold text-[color:var(--theme-text)] block">NTN</label>
+          <div className="border border-[color:var(--theme-border)] rounded-lg p-2">
             <Input
               id="ntn"
               name="ntn"
@@ -284,8 +284,8 @@ const CompanyForm = ({ initialData, loading }) => {
 
         {/* STRN */}
         <div className="space-y-2">
-          <label htmlFor="strn" className="text-sm font-bold text-gray-700 block">STRN</label>
-          <div className="border border-gray-300 rounded-lg p-2">
+          <label htmlFor="strn" className="text-sm font-bold text-[color:var(--theme-text)] block">STRN</label>
+          <div className="border border-[color:var(--theme-border)] rounded-lg p-2">
             <Input
               id="strn"
               name="strn"
@@ -301,8 +301,8 @@ const CompanyForm = ({ initialData, loading }) => {
 
       {/* Address */}
       <div className="space-y-2 md:col-span-2">
-        <label htmlFor="address" className="text-sm font-bold text-gray-700 block">Address</label>
-        <div className="border border-gray-300 rounded-lg p-2">
+        <label htmlFor="address" className="text-sm font-bold text-[color:var(--theme-text)] block">Address</label>
+        <div className="border border-[color:var(--theme-border)] rounded-lg p-2">
           <textarea
             id="address"
             name="address"
@@ -317,11 +317,11 @@ const CompanyForm = ({ initialData, loading }) => {
       </div>
 
       {/* Submit button */}
-      <div className="flex justify-end pt-4 border-t border-gray-200">
+      <div className="flex justify-end pt-4 border-t border-[color:var(--theme-border)]">
         <Button
           type="submit"
           disabled={isSubmitting || Object.keys(errors).length > 0}
-          className="px-6 py-2 rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white transition-all duration-200 shadow-md hover:shadow-lg"
+          className="px-6 py-2 rounded-lg bg-gradient-to-r from-[color:var(--theme-primary)] to-[color:var(--theme-secondary)] hover:from-[color:var(--theme-primary)]/80 hover:to-[color:var(--theme-secondary)]/80 text-white transition-all duration-200 shadow-md hover:shadow-lg"
         >
           {isSubmitting ? 'Saving...' : isEditing ? 'Update Information' : 'Save Information'}
         </Button>

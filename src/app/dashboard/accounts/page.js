@@ -20,14 +20,14 @@ const AccountsPage = () => {
     const fetchAccounts = async () => {
       try {
         const response = await axios.get('/api/accounts');
-        setAccounts(response.data.accounts || []);
+        setAccounts(response.data || []);
       } catch (error) {
         console.error('Error fetching accounts:', error);
       } finally {
         setLoading(false);
       }
     };
-
+    console.log(accounts , "Accounts")
     fetchAccounts();
   }, []);
 
@@ -37,7 +37,7 @@ const AccountsPage = () => {
         await axios.delete(`/api/accounts/${id}`);
         // Refresh the account list after successful deletion
         const response = await axios.get('/api/accounts');
-        setAccounts(response.data.accounts || []);
+        setAccounts(response.data || []);
       } catch (error) {
         console.error('Error deleting account:', error);
         alert(`Error deleting account: ${error.response?.data?.message || error.message}`);
@@ -50,7 +50,7 @@ const AccountsPage = () => {
       await axios.post('/api/accounts', data);
       // Refresh the account list after successful creation
       const response = await axios.get('/api/accounts');
-      setAccounts(response.data.accounts || []);
+      setAccounts(response.data || []);
       setShowForm(false); // Return to list view
     } catch (error) {
       console.error('Error creating account:', error);
@@ -63,7 +63,7 @@ const AccountsPage = () => {
       await axios.put(`/api/accounts/${editingAccount._id}`, data);
       // Refresh the account list after successful update
       const response = await axios.get('/api/accounts');
-      setAccounts(response.data.accounts || []);
+      setAccounts(response.data || []);
       setShowForm(false); // Return to list view
       setEditingAccount(null); // Clear editing state
     } catch (error) {

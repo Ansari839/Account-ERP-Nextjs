@@ -5,8 +5,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Button } from '@/components/ui/button';
+} from '@/components/UI/dropdown-menu';
+import { Button } from '@/components/UI/Button';
 import { User } from 'lucide-react';
 
 export function UserNav() {

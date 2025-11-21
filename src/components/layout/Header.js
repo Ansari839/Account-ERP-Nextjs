@@ -15,7 +15,7 @@ const Header = ({ sidebarOpen, toggleSidebar }) => {
   };
 
   return (
-    <header className="sticky top-0 z-10 flex h-16 items-center gap-4 border-b bg-background/80 px-4 backdrop-blur-md">
+    <header className="sticky top-0 z-10 flex h-16 items-center gap-4 border-b border-[color:var(--theme-border)] bg-[color:var(--theme-background)]/80 px-4 backdrop-blur-md">
       <Button
         variant="outline"
         size="icon"
@@ -44,7 +44,7 @@ const Header = ({ sidebarOpen, toggleSidebar }) => {
           <div className="relative">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground"
+              className="absolute left-2.5 top-2.5 h-4 w-4 text-[color:var(--theme-text)]/60"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -60,7 +60,7 @@ const Header = ({ sidebarOpen, toggleSidebar }) => {
               placeholder="Search..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full rounded-lg border bg-background pl-8 pr-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+              className="w-full rounded-lg border border-[color:var(--theme-border)] bg-[color:var(--theme-card-bg)] pl-8 pr-4 py-2 text-sm text-[color:var(--theme-text)] focus:outline-none focus:ring-2 focus:ring-[color:var(--theme-primary)] focus:ring-offset-2"
             />
           </div>
         </form>
@@ -70,13 +70,13 @@ const Header = ({ sidebarOpen, toggleSidebar }) => {
             variant="outline"
             size="icon"
             onClick={toggleDarkMode}
-            className="relative rounded-xl"
+            className="relative rounded-xl border-[color:var(--theme-border)] bg-[color:var(--theme-card-bg)] text-[color:var(--theme-text)]"
             aria-label="Toggle theme"
           >
             {isDarkMode ? (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 text-foreground"
+                className="h-5 w-5 text-[color:var(--theme-text)]"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -89,7 +89,7 @@ const Header = ({ sidebarOpen, toggleSidebar }) => {
             ) : (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 text-foreground"
+                className="h-5 w-5 text-[color:var(--theme-text)]"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -104,9 +104,9 @@ const Header = ({ sidebarOpen, toggleSidebar }) => {
 
           <Button
             variant="outline"
-            className="rounded-xl flex items-center gap-2"
+            className="rounded-xl flex items-center gap-2 border-[color:var(--theme-border)] bg-[color:var(--theme-card-bg)] text-[color:var(--theme-text)]"
           >
-            <div className="w-6 h-6 rounded-full bg-gradient-to-r from-primary/30 to-primary/20 flex items-center justify-center text-primary text-xs font-bold">
+            <div className="w-6 h-6 rounded-full bg-gradient-to-r from-[color:var(--theme-primary)]/30 to-[color:var(--theme-primary)]/20 flex items-center justify-center text-[color:var(--theme-primary)] text-xs font-bold">
               <span className="text-xs">U</span>
             </div>
             User

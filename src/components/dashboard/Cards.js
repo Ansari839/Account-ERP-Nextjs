@@ -12,48 +12,48 @@ const StatCard = ({
   value,
   description,
   icon: Icon,
-  color = 'blue',
+  color = 'primary',
   className = ''
 }) => {
   const colorClasses = {
-    blue: {
-      bg: 'bg-gradient-to-br from-blue-500 to-blue-600',
-      text: 'text-blue-100',
-      iconBg: 'bg-blue-400/20',
-      iconColor: 'text-blue-300'
+    primary: {
+      bg: 'bg-gradient-to-br from-[color:var(--theme-primary)] to-[color:var(--theme-secondary)]',
+      text: 'text-[color:var(--theme-text)]/80',
+      iconBg: 'bg-[color:var(--theme-primary)]/20',
+      iconColor: 'text-[color:var(--theme-primary)]/60'
     },
-    green: {
-      bg: 'bg-gradient-to-br from-green-500 to-green-600',
-      text: 'text-green-100',
-      iconBg: 'bg-green-400/20',
-      iconColor: 'text-green-300'
+    secondary: {
+      bg: 'bg-gradient-to-br from-[color:var(--theme-secondary)] to-[color:var(--theme-accent)]',
+      text: 'text-[color:var(--theme-text)]/80',
+      iconBg: 'bg-[color:var(--theme-secondary)]/20',
+      iconColor: 'text-[color:var(--theme-secondary)]/60'
     },
-    purple: {
-      bg: 'bg-gradient-to-br from-purple-500 to-purple-600',
-      text: 'text-purple-100',
-      iconBg: 'bg-purple-400/20',
-      iconColor: 'text-purple-300'
+    accent: {
+      bg: 'bg-gradient-to-br from-[color:var(--theme-accent)] to-[color:var(--theme-primary)]',
+      text: 'text-[color:var(--theme-text)]/80',
+      iconBg: 'bg-[color:var(--theme-accent)]/20',
+      iconColor: 'text-[color:var(--theme-accent)]/60'
     },
-    orange: {
-      bg: 'bg-gradient-to-br from-orange-500 to-orange-600',
-      text: 'text-orange-100',
-      iconBg: 'bg-orange-400/20',
-      iconColor: 'text-orange-300'
+    background: {
+      bg: 'bg-gradient-to-br from-[color:var(--theme-background)] to-[color:var(--theme-card-bg)]',
+      text: 'text-[color:var(--theme-text)]/80',
+      iconBg: 'bg-[color:var(--theme-background)]/20',
+      iconColor: 'text-[color:var(--theme-background)]/60'
     },
   };
 
-  const colors = colorClasses[color] || colorClasses.blue;
+  const colors = colorClasses[color] || colorClasses.primary;
 
   return (
     <div className={cn(
       "rounded-xl p-5 shadow-lg transition-all duration-300 hover:shadow-xl",
-      "border border-border/50 bg-card",
+      "border border-[color:var(--theme-border)] bg-[color:var(--theme-card-bg)]",
       colors.bg,
       className
     )}>
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-sm font-medium text-foreground/80">{title}</p>
+          <p className="text-sm font-medium text-[color:var(--theme-text)]/80">{title}</p>
           <h3 className="text-2xl font-bold mt-1 text-white">{value}</h3>
         </div>
         <div className={cn(
@@ -79,28 +79,28 @@ const Cards = ({ className }) => {
         value="24"
         description="+12% from last month"
         icon={Users}
-        color="blue"
+        color="primary"
       />
       <StatCard
         title="Active Accounts"
         value="18"
         description="+8% from last month"
         icon={Activity}
-        color="green"
+        color="secondary"
       />
       <StatCard
         title="Pending Approval"
         value="3"
         description="-2 from last month"
         icon={TrendingUp}
-        color="orange"
+        color="accent"
       />
       <StatCard
         title="Avg. Balance"
         value="$12,450"
         description="+3.2% from last month"
         icon={DollarSign}
-        color="purple"
+        color="background"
       />
     </div>
   );

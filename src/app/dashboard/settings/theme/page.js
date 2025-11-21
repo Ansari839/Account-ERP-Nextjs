@@ -2,8 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import DashboardLayout from '@/components/layout/DashboardLayout';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/UI/Card';
+import { Button } from '@/components/UI/Button';
 import { useTheme } from '@/contexts/ThemeProvider';
 
 const ThemeSettingsPage = () => {
@@ -63,30 +63,30 @@ const ThemeSettingsPage = () => {
     <DashboardLayout>
       <div className="space-y-6">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Theme Settings</h1>
-          <p className="text-gray-600">Customize the appearance of your application</p>
+          <h1 className="text-3xl font-bold tracking-tight text-[color:var(--theme-text)]">Theme Settings</h1>
+          <p className="text-[color:var(--theme-text)]/70">Customize the appearance of your application</p>
         </div>
 
-        <Card className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
+        <Card className="bg-[color:var(--theme-card-bg)] border border-[color:var(--theme-border)] rounded-xl p-6 shadow-sm">
           <CardHeader>
-            <CardTitle>Appearance</CardTitle>
+            <CardTitle className="text-[color:var(--theme-text)]">Appearance</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="flex items-center mb-6">
-              <span className="mr-2 text-gray-700">Light</span>
+              <span className="mr-2 text-[color:var(--theme-text)]/70">Light</span>
               <button
                 onClick={toggleDarkMode}
                 className={`w-14 h-7 flex items-center rounded-full p-1 transition-colors ${
-                  isDarkMode ? 'bg-blue-500' : 'bg-gray-300'
+                  isDarkMode ? 'bg-[color:var(--theme-primary)]' : 'bg-[color:var(--theme-text)]/40'
                 }`}
               >
                 <div
-                  className={`bg-white w-5 h-5 rounded-full shadow-md transform transition-transform ${
+                  className={`bg-[color:var(--theme-card-bg)] w-5 h-5 rounded-full shadow-md transform transition-transform ${
                     isDarkMode ? 'translate-x-7' : ''
                   }`}
                 ></div>
               </button>
-              <span className="ml-2 text-gray-700">Dark</span>
+              <span className="ml-2 text-[color:var(--theme-text)]/70">Dark</span>
             </div>
 
             <div className="mb-6">
@@ -95,10 +95,10 @@ const ThemeSettingsPage = () => {
                 {themePalettes.map((palette) => (
                   <div
                     key={palette.id}
-                    className={`border rounded-lg p-4 cursor-pointer transition-all duration-200 ${
+                    className={`border border-[color:var(--theme-border)] rounded-lg p-4 cursor-pointer transition-all duration-200 ${
                       localSelectedPalette?.id === palette.id
-                        ? 'border-blue-500 ring-2 ring-blue-200'
-                        : 'border-gray-200 hover:border-blue-300'
+                        ? 'border-[color:var(--theme-primary)] ring-2 ring-[color:var(--theme-primary)]/30'
+                        : 'hover:border-[color:var(--theme-primary)]/50'
                     }`}
                     onClick={() => handleThemeChange(palette)}
                   >
@@ -111,7 +111,7 @@ const ThemeSettingsPage = () => {
                             : '#D1D5DB' // default gray for unselected
                         }}
                       ></div>
-                      <h4 className="font-semibold">{palette.name}</h4>
+                      <h4 className="font-semibold text-[color:var(--theme-text)]">{palette.name}</h4>
                     </div>
                     <div className="mb-3">
                       {getThemePreview(palette)}
@@ -145,25 +145,25 @@ const ThemeSettingsPage = () => {
           </CardContent>
         </Card>
 
-        <Card className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
+        <Card className="bg-[color:var(--theme-card-bg)] border border-[color:var(--theme-border)] rounded-xl p-6 shadow-sm">
           <CardHeader>
-            <CardTitle>Theme Information</CardTitle>
+            <CardTitle className="text-[color:var(--theme-text)]">Theme Information</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <h4 className="font-medium mb-2">Current Theme</h4>
-                  <p className="text-gray-700">{localSelectedPalette?.name || 'Default theme'}</p>
+                  <h4 className="font-medium mb-2 text-[color:var(--theme-text)]">Current Theme</h4>
+                  <p className="text-[color:var(--theme-text)]/70">{localSelectedPalette?.name || 'Default theme'}</p>
                 </div>
                 <div>
-                  <h4 className="font-medium mb-2">Mode</h4>
-                  <p className="text-gray-700 capitalize">{isDarkMode ? 'Dark' : 'Light'} Mode</p>
+                  <h4 className="font-medium mb-2 text-[color:var(--theme-text)]">Mode</h4>
+                  <p className="text-[color:var(--theme-text)]/70 capitalize">{isDarkMode ? 'Dark' : 'Light'} Mode</p>
                 </div>
               </div>
               <div className="pt-4">
-                <h4 className="font-medium mb-2">About Theme Selection</h4>
-                <p className="text-gray-700">
+                <h4 className="font-medium mb-2 text-[color:var(--theme-text)]">About Theme Selection</h4>
+                <p className="text-[color:var(--theme-text)]/70">
                   Select from our professionally designed color palettes, each crafted
                   specifically for accounting and finance applications. The selected theme
                   is automatically applied to all UI elements across the application and

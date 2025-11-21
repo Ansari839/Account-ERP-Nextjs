@@ -91,17 +91,17 @@ const AccountForm = ({ onSubmit, initialData = null, mode = 'create' }) => {
               name="city"
               render={({ field }) => (
               <div className="space-y-2">
-                <FormLabel className="text-sm font-bold text-gray-700 block">City</FormLabel>
+                <FormLabel className="text-sm font-bold text-[color:var(--theme-text)] block">City</FormLabel>
                 <FormControl>
-                  <div className="border border-gray-300 rounded-lg p-2">
+                  <div className="border border-[color:var(--theme-border)] rounded-lg p-2">
                     <Input
                       placeholder="Enter city"
                       {...field}
                       className={cn(
                         "w-full border-0 focus:ring-0 p-0",
                         form.formState.errors.city
-                          ? "focus:ring-1 focus:ring-red-500"
-                          : "focus:ring-1 focus:ring-blue-500"
+                          ? "focus:ring-1 focus:ring-[color:var(--theme-accent)]"
+                          : "focus:ring-1 focus:ring-[color:var(--theme-primary)]"
                       )}
                     />
                   </div>
@@ -117,17 +117,17 @@ const AccountForm = ({ onSubmit, initialData = null, mode = 'create' }) => {
               name="address"
               render={({ field }) => (
               <div className="space-y-2 md:col-span-2">
-                <FormLabel className="text-sm font-bold text-gray-700 block">Address</FormLabel>
+                <FormLabel className="text-sm font-bold text-[color:var(--theme-text)] block">Address</FormLabel>
                 <FormControl>
-                  <div className="border border-gray-300 rounded-lg p-2">
+                  <div className="border border-[color:var(--theme-border)] rounded-lg p-2">
                     <Input
                       placeholder="Enter address"
                       {...field}
                       className={cn(
                         "w-full border-0 focus:ring-0 p-0",
                         form.formState.errors.address
-                          ? "focus:ring-1 focus:ring-red-500"
-                          : "focus:ring-1 focus:ring-blue-500"
+                          ? "focus:ring-1 focus:ring-[color:var(--theme-accent)]"
+                          : "focus:ring-1 focus:ring-[color:var(--theme-primary)]"
                       )}
                     />
                   </div>
@@ -143,17 +143,17 @@ const AccountForm = ({ onSubmit, initialData = null, mode = 'create' }) => {
               name="telephone"
               render={({ field }) => (
               <div className="space-y-2">
-                <FormLabel className="text-sm font-bold text-gray-700 block">Telephone</FormLabel>
+                <FormLabel className="text-sm font-bold text-[color:var(--theme-text)] block">Telephone</FormLabel>
                 <FormControl>
-                  <div className="border border-gray-300 rounded-lg p-2">
+                  <div className="border border-[color:var(--theme-border)] rounded-lg p-2">
                     <Input
                       placeholder="Enter telephone number"
                       {...field}
                       className={cn(
                         "w-full border-0 focus:ring-0 p-0",
                         form.formState.errors.telephone
-                          ? "focus:ring-1 focus:ring-red-500"
-                          : "focus:ring-1 focus:ring-blue-500"
+                          ? "focus:ring-1 focus:ring-[color:var(--theme-accent)]"
+                          : "focus:ring-1 focus:ring-[color:var(--theme-primary)]"
                       )}
                     />
                   </div>
@@ -169,16 +169,16 @@ const AccountForm = ({ onSubmit, initialData = null, mode = 'create' }) => {
               name="headOfAccount"
               render={({ field }) => (
               <div className="space-y-2">
-                <FormLabel className="text-sm font-bold text-gray-700 block">Head of Account *</FormLabel>
-                <div className="border border-gray-300 rounded-lg p-2">
+                <FormLabel className="text-sm font-bold text-[color:var(--theme-text)] block">Head of Account *</FormLabel>
+                <div className="border border-[color:var(--theme-border)] rounded-lg p-2">
                   <Select onValueChange={field.onChange} value={field.value}>
                     <FormControl>
                       <SelectTrigger
                         className={cn(
                           "w-full border-0 focus:ring-0 py-0",
                           form.formState.errors.headOfAccount
-                            ? "focus:ring-1 focus:ring-red-500"
-                            : "focus:ring-1 focus:ring-blue-500"
+                            ? "focus:ring-1 focus:ring-[color:var(--theme-accent)]"
+                            : "focus:ring-1 focus:ring-[color:var(--theme-primary)]"
                         )}
                       >
                         <SelectValue placeholder="Select head of account" />
@@ -204,9 +204,9 @@ const AccountForm = ({ onSubmit, initialData = null, mode = 'create' }) => {
               name="openingBalance"
               render={({ field }) => (
               <div className="space-y-2">
-                <FormLabel className="text-sm font-bold text-gray-700 block">Opening Balance</FormLabel>
+                <FormLabel className="text-sm font-bold text-[color:var(--theme-text)] block">Opening Balance</FormLabel>
                 <FormControl>
-                  <div className="border border-gray-300 rounded-lg p-2">
+                  <div className="border border-[color:var(--theme-border)] rounded-lg p-2">
                     <Input
                       type="number"
                       placeholder="Enter opening balance"
@@ -215,8 +215,8 @@ const AccountForm = ({ onSubmit, initialData = null, mode = 'create' }) => {
                       className={cn(
                         "w-full border-0 focus:ring-0 p-0",
                         form.formState.errors.openingBalance
-                          ? "focus:ring-1 focus:ring-red-500"
-                          : "focus:ring-1 focus:ring-blue-500"
+                          ? "focus:ring-1 focus:ring-[color:var(--theme-accent)]"
+                          : "focus:ring-1 focus:ring-[color:var(--theme-primary)]"
                       )}
                     />
                   </div>
@@ -232,16 +232,16 @@ const AccountForm = ({ onSubmit, initialData = null, mode = 'create' }) => {
               name="openingType"
               render={({ field }) => (
               <div className="space-y-2">
-                <FormLabel className="text-sm font-bold text-gray-700 block">Opening Type *</FormLabel>
-                <div className="border border-gray-300 rounded-lg p-2">
+                <FormLabel className="text-sm font-bold text-[color:var(--theme-text)] block">Opening Type *</FormLabel>
+                <div className="border border-[color:var(--theme-border)] rounded-lg p-2">
                   <Select onValueChange={field.onChange} value={field.value}>
                     <FormControl>
                       <SelectTrigger
                         className={cn(
                           "w-full border-0 focus:ring-0 py-0",
                           form.formState.errors.openingType
-                            ? "focus:ring-1 focus:ring-red-500"
-                            : "focus:ring-1 focus:ring-blue-500"
+                            ? "focus:ring-1 focus:ring-[color:var(--theme-accent)]"
+                            : "focus:ring-1 focus:ring-[color:var(--theme-primary)]"
                         )}
                       >
                         <SelectValue placeholder="Select opening type" />
@@ -264,17 +264,17 @@ const AccountForm = ({ onSubmit, initialData = null, mode = 'create' }) => {
               name="category"
               render={({ field }) => (
               <div className="space-y-2 md:col-span-2">
-                <FormLabel className="text-sm font-bold text-gray-700 block">Category</FormLabel>
+                <FormLabel className="text-sm font-bold text-[color:var(--theme-text)] block">Category</FormLabel>
                 <FormControl>
-                  <div className="border border-gray-300 rounded-lg p-2">
+                  <div className="border border-[color:var(--theme-border)] rounded-lg p-2">
                     <Input
                       placeholder="Enter category"
                       {...field}
                       className={cn(
                         "w-full border-0 focus:ring-0 p-0",
                         form.formState.errors.category
-                          ? "focus:ring-1 focus:ring-red-500"
-                          : "focus:ring-1 focus:ring-blue-500"
+                          ? "focus:ring-1 focus:ring-[color:var(--theme-accent)]"
+                          : "focus:ring-1 focus:ring-[color:var(--theme-primary)]"
                       )}
                     />
                   </div>
@@ -299,14 +299,14 @@ const AccountForm = ({ onSubmit, initialData = null, mode = 'create' }) => {
             </Button>
 
             <div className="flex flex-col sm:flex-row gap-3">
-              {/* <Button
+              <Button
                 type="button"
                 variant="outline"
                 onClick={() => window.location.href = '/dashboard/accounts'}
                 className="px-4 py-2 rounded-lg border-[color:var(--theme-border)] text-[color:var(--theme-text)] hover:bg-[color:var(--theme-card-bg)]/70 sm:order-1"
               >
                 Go to Account List
-              </Button> */}
+              </Button>
 
               <Button
                 type="submit"

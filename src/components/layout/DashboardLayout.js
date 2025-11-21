@@ -62,7 +62,7 @@ const DashboardLayout = ({ children }) => {
             sidebarOpen={sidebarOpen}
             toggleSidebar={toggleSidebar}
           />
-          <main className="flex-1 p-4 md:p-6 overflow-y-auto bg-muted/20">
+          <main className="flex-1 p-4 md:p-6 overflow-y-auto bg-[color:var(--theme-background)]/20">
             {children}
           </main>
         </div>
@@ -70,7 +70,7 @@ const DashboardLayout = ({ children }) => {
         {/* Overlay for mobile sidebar */}
         {sidebarOpen && isMobile && (
           <div
-            className="fixed inset-0 z-40 bg-black/50 md:hidden"
+            className="fixed inset-0 z-40 bg-[color:var(--theme-text)]/50 md:hidden"
             onClick={() => setSidebarOpen(false)}
           ></div>
         )}

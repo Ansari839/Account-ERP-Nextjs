@@ -13,12 +13,11 @@ const CompanyPage = () => {
     const fetchCompanyData = async () => {
       try {
         const response = await fetch('/api/company');
-        const result = await response.json();
-
-        if (result.exists) {
-          setCompanyData(result.data);
+        if (response.ok) {
+          const company = await response.json();
+          setCompanyData(company);
         } else {
-          setCompanyData(null);
+          console.error('Failed to fetch company data');
         }
       } catch (error) {
         console.error('Error fetching company data:', error);
